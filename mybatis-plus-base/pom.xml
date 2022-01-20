@@ -8,7 +8,7 @@
 		<version>${revision}</version>
 	</parent>
 
-	<artifactId>mybatis-plus</artifactId>
+	<artifactId>mybatis-plus-base</artifactId>
 	<version>${revision}</version>
 
 	<name>mybatis-plus</name>
