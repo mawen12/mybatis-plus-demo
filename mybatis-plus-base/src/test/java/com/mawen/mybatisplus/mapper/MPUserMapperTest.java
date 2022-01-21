@@ -27,7 +27,4 @@ public class MPUserMapperTest {
         Assertions.assertEquals(5, userList.size());
         userList.forEach(System.out::println);
     }
-
-
-
 }
