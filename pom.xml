@@ -9,6 +9,7 @@
         <module>mybatis-plus-base</module>
         <module>mybatis-plus-generator</module>
         <module>mybatis-plus-service</module>
+        <module>mybatis-plus-controller</module>
     </modules>
 
     <name>mybatis-plus</name>
@@ -95,6 +96,12 @@
             <id>service</id>
             <modules>
                 <module>mybatis-plus-service</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>controller</id>
+            <modules>
+                <module>mybatis-plus-controller</module>
             </modules>
         </profile>
     </profiles>
