@@ -10,6 +10,10 @@
         <module>mybatis-plus-generator</module>
         <module>mybatis-plus-service</module>
         <module>mybatis-plus-controller</module>
+        <module>mybatis-plus-injector</module>
+        <module>mybatis-plus-activerecord</module>
+        <module>mybatis-plus-simplequery</module>
+        <module>mybatis-plus-wrapper</module>
     </modules>
 
     <name>mybatis-plus</name>
@@ -104,6 +108,14 @@
                 <module>mybatis-plus-controller</module>
             </modules>
         </profile>
+        <profile>
+            <id>injector</id>
+            <modules>
+                <module>mybatis-plus-injector</module>
+            </modules>
+        </profile>
+
+
     </profiles>
 
     <build>
