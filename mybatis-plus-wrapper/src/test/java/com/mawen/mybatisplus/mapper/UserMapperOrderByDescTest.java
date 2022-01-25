@@ -13,28 +13,28 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * orderByAsc == order by asc
+ * orderByDesc == order by desc
  */
 @SpringBootTest
-public class UserMapperOrderByAscTest {
+public class UserMapperOrderByDescTest {
 
     @Autowired
     private UserMapper userMapper;
 
     @Test
-    public void orderByAsc() {
-        // SELECT * FROM user ORDER BY id ASC
-        List<Long> ids = userMapper.selectList(Wrappers.<User>lambdaQuery().orderByAsc(User::getId)).stream().map(User::getId).collect(Collectors.toList());
+    public void orderByDesc() {
+        // SELECT * FROM user ORDER BY id DESC
+        List<Long> ids = userMapper.selectList(Wrappers.<User>lambdaQuery().orderByDesc(User::getId)).stream().map(User::getId).collect(Collectors.toList());
 
         Assertions.assertEquals(5L, ids.size());
-        Assertions.assertTrue(Comparators.isInOrder(ids, Ordering.natural()));
+        Assertions.assertTrue(Ordering.natural().reverse().isOrdered(ids));
 
     }
 
     @Test
-    public void orderByAscWithCondition() {
+    public void orderByDescWithCondition() {
         // SELECT COUNT( * ) FROM user
-        Long userCount = userMapper.selectCount(Wrappers.<User>lambdaQuery().orderByAsc(false, User::getId));
+        Long userCount = userMapper.selectCount(Wrappers.<User>lambdaQuery().orderByDesc(false, User::getId));
 
         Assertions.assertEquals(5L, userCount);
     }

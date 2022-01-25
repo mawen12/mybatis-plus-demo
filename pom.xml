@@ -32,6 +32,7 @@
         <mybatis-plus-generator.version>3.5.1</mybatis-plus-generator.version>
         <swagger-boot.version>1.8</swagger-boot.version>
         <p6spy.version>3.8.7</p6spy.version>
+        <guava.version>30.0-jre</guava.version>
     </properties>
 
     <dependencyManagement>
@@ -78,6 +79,14 @@
                 <groupId>com.enhe.framework</groupId>
                 <artifactId>ef-core-tool</artifactId>
                 <version>0.0.2-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava-bom</artifactId>
+                <version>${guava.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
             </dependency>
         </dependencies>
 

@@ -1,7 +1,6 @@
 package com.mawen.mybatisplus.mapper;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.google.common.collect.Comparators;
 import com.google.common.collect.Ordering;
 import com.mawen.mybatisplus.entity.User;
 import org.junit.jupiter.api.Assertions;
@@ -13,28 +12,25 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * orderByAsc == order by asc
+ * having = having sql
  */
 @SpringBootTest
-public class UserMapperOrderByAscTest {
+public class UserMapperOrderByTest {
 
     @Autowired
     private UserMapper userMapper;
 
     @Test
-    public void orderByAsc() {
-        // SELECT * FROM user ORDER BY id ASC
-        List<Long> ids = userMapper.selectList(Wrappers.<User>lambdaQuery().orderByAsc(User::getId)).stream().map(User::getId).collect(Collectors.toList());
-
-        Assertions.assertEquals(5L, ids.size());
-        Assertions.assertTrue(Comparators.isInOrder(ids, Ordering.natural()));
-
+    public void having() {
+        // SELECT * FROM user GROUP BY age HAVING age > 25
+        List<User> userList = userMapper.selectList(Wrappers.<User>lambdaQuery().groupBy(User::getAge).having("age > {0}", 25L));
+        Assertions.assertEquals(1L, userList.size());
     }
 
     @Test
-    public void orderByAscWithCondition() {
+    public void havingWithCondition() {
         // SELECT COUNT( * ) FROM user
-        Long userCount = userMapper.selectCount(Wrappers.<User>lambdaQuery().orderByAsc(false, User::getId));
+        Long userCount = userMapper.selectCount(Wrappers.<User>lambdaQuery().groupBy(false, User::getAge).having(false, "age > 25"));
 
         Assertions.assertEquals(5L, userCount);
     }
