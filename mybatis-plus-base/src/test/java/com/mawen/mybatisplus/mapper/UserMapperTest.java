@@ -22,4 +22,10 @@ public class UserMapperTest {
         userList.forEach(System.out::println);
     }
 
+    @Test
+    public void testSelectName() {
+        User user = userMapper.selectByName("Jone");
+        Assertions.assertNotNull(user);
+    }
+
 }

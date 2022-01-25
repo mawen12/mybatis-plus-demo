@@ -14,6 +14,7 @@
         <module>mybatis-plus-activerecord</module>
         <module>mybatis-plus-simplequery</module>
         <module>mybatis-plus-wrapper</module>
+        <module>mybatis-plus-pagination</module>
     </modules>
 
     <name>mybatis-plus</name>
@@ -123,8 +124,12 @@
                 <module>mybatis-plus-injector</module>
             </modules>
         </profile>
-
-
+        <profile>
+            <id>pagination</id>
+            <modules>
+                <module>mybatis-plus-pagination</module>
+            </modules>
+        </profile>
     </profiles>
 
     <build>
