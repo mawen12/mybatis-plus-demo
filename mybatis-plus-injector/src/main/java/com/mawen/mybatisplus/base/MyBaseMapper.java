@@ -38,5 +38,5 @@ public interface MyBaseMapper<T> extends BaseMapper<T> {
      */
     int insertBatchSomeColumn(List<T> entityList);
 
-
+    int insertIgnore(T entity);
 }

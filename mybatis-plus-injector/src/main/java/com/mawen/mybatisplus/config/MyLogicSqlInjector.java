@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.extension.injector.methods.AlwaysUpdateSomeColumnById;
 import com.baomidou.mybatisplus.extension.injector.methods.InsertBatchSomeColumn;
 import com.mawen.mybatisplus.methods.DeleteAll;
+import com.mawen.mybatisplus.methods.InsertIgnore;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class MyLogicSqlInjector extends DefaultSqlInjector {
         methodList.add(new AlwaysUpdateSomeColumnById(t -> !t.isLogicDelete() && !t.isVersion() && t.getFieldFill() != FieldFill.INSERT));
         methodList.add(new InsertBatchSomeColumn(t -> !t.isLogicDelete() && !t.isVersion() && t.getFieldFill() != FieldFill.UPDATE));
         methodList.add(new DeleteById());
+        methodList.add(new InsertIgnore());
         return methodList;
     }
 }
