@@ -31,9 +31,9 @@ public class InsertIgnore extends AbstractMethod {
     @Override
     public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
         String tableName = tableInfo.getTableName();
-        String columnScript = tableInfo.getAllInsertSqlColumnMaybeIf(null);
-        String valueScript = tableInfo.getAllInsertSqlPropertyMaybeIf(null);
-        String sql = String.format("INSERT IGNORE INTO %s (%s) VALUES (%s)", tableName, columnScript, valueScript);
+        String columnScript =  convertTrim(tableInfo.getAllInsertSqlColumnMaybeIf(null), "(", ")", null, ",");
+        String valueScript = convertTrim(tableInfo.getAllInsertSqlPropertyMaybeIf(null), "(", ")", null, ",");
+        String sql = String.format("<script>\nINSERT IGNORE INTO %s %s VALUES %s\n</script>", tableName, columnScript, valueScript);
         SqlSource sqlSource = this.languageDriver.createSqlSource(this.configuration, sql, modelClass);
 
         KeyGenerator keyGenerator = new NoKeyGenerator();
@@ -52,5 +52,23 @@ public class InsertIgnore extends AbstractMethod {
         }
 
         return this.addInsertMappedStatement(mapperClass, modelClass, METHOD_NAME, sqlSource, keyGenerator, keyProperty, keyColumn);
+    }
+
+    public static String convertTrim(final String sqlScript, final String prefix, final String suffix,
+                                     final String prefixOverrides, final String suffixOverrides) {
+        StringBuilder sb = new StringBuilder("<trim");
+        if (com.baomidou.mybatisplus.core.toolkit.StringUtils.isNotBlank(prefix)) {
+            sb.append(" prefix=\"").append(prefix).append(QUOTE);
+        }
+        if (com.baomidou.mybatisplus.core.toolkit.StringUtils.isNotBlank(suffix)) {
+            sb.append(" suffix=\"").append(suffix).append(QUOTE);
+        }
+        if (com.baomidou.mybatisplus.core.toolkit.StringUtils.isNotBlank(prefixOverrides)) {
+            sb.append(" prefixOverrides=\"").append(prefixOverrides).append(QUOTE);
+        }
+        if (com.baomidou.mybatisplus.core.toolkit.StringUtils.isNotBlank(suffixOverrides)) {
+            sb.append(" suffixOverrides=\"").append(suffixOverrides).append(QUOTE);
+        }
+        return sb.append(RIGHT_CHEV).append(NEWLINE).append(sqlScript).append(NEWLINE).append("</trim>").toString();
     }
 }
